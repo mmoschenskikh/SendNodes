@@ -1,5 +1,7 @@
 # Send Nodes
 
+![Build and Push to Docker Hub](https://github.com/mmoschenskikh/SendNodes/actions/workflows/docker-build-and-push.yml/badge.svg?branch=master)
+
 A tiny blockchain implementation
 for [Network Programming course](https://github.com/SemenMartynov/Software-Engineering-2022/blob/main/NetworkProgrammingTask.md).
 

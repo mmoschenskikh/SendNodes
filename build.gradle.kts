@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm") version "1.8.21"
+    kotlin("plugin.serialization") version "1.8.21"
     application
 }
 
@@ -10,8 +11,10 @@ repositories {
     mavenCentral()
 }
 
-tasks.test {
-    useJUnitPlatform()
+val kotlinxSerializationVersion: String by project
+
+dependencies {
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerializationVersion")
 }
 
 application {

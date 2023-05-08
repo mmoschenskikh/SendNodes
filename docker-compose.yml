@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  first:
+    image: maxultrasystem/send-nodes
+    container_name: first
+    network_mode: host
+    command: java -jar /app/send-nodes.jar 127.0.0.1:1337 127.0.0.1:1338,127.0.0.1:1339
+    ports:
+      - "1337:1337"
+  second:
+    image: maxultrasystem/send-nodes
+    container_name: second
+    network_mode: host
+    command: java -jar /app/send-nodes.jar 127.0.0.1:1338 127.0.0.1:1339,127.0.0.1:1337
+    ports:
+      - "1338:1338"
+  third:
+    image: maxultrasystem/send-nodes
+    container_name: third
+    network_mode: host
+    command: java -jar /app/send-nodes.jar 127.0.0.1:1339 127.0.0.1:1337,127.0.0.1:1338
+    ports:
+      - "1339:1339"

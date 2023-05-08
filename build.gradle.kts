@@ -11,9 +11,11 @@ repositories {
     mavenCentral()
 }
 
+val ktorVersion: String by project
 val kotlinxSerializationVersion: String by project
 
 dependencies {
+    implementation("io.ktor:ktor-network:$ktorVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerializationVersion")
 }
 

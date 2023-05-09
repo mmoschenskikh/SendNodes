@@ -26,8 +26,8 @@ First, build the fat jar image with Gradle:
 Then, run as many nodes as you need:
 
 ```
-java -jar ./build/libs/SendNodes-1.0.jar 127.0.0.1:1337 127.0.0.1:1338,127.0.0.1:1339
-java -jar ./build/libs/SendNodes-1.0.jar 127.0.0.1:1338 127.0.0.1:1339,127.0.0.1:1337
-java -jar ./build/libs/SendNodes-1.0.jar 127.0.0.1:1339 127.0.0.1:1337,127.0.0.1:1338
-...
+java -jar ./build/libs/SendNodes-1.0.jar
 ```
+
+You need to provide `NODE_ADDRESS` and `PEER_ADDRESSES` environment variables for each node instance.
+See [docker-compose.yml](./docker-compose.yml) for examples.

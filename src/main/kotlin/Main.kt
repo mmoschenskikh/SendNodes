@@ -27,8 +27,15 @@ fun main() = runBlocking {
     node.run()
 }
 
-private fun getNodeAddress() = getEnvOrThrow("NODE_ADDRESS").split(":").run { Address(get(0), get(1).toInt()) }
+private fun getNodeAddress() = getEnvOrThrow("NODE_ADDRESS").asAddress()
 
-private fun getPeerAddresses() = getEnvOrThrow("PEER_ADDRESSES").split(",").map { address ->
-    address.split(":").run { Address(get(0), get(1).toInt()) }
+private fun getPeerAddresses() = getEnvOrThrow("PEER_ADDRESSES").split(",").map(String::asAddress)
+
+private fun String.asAddress(): Address {
+    val parts = split(":")
+    return when (parts.size) {
+        1 -> Address(hostName = parts[0])
+        2 -> Address(hostName = parts[0], port = parts[1].toInt())
+        else -> throw IllegalArgumentException("Cannot parse socket address: $this")
+    }
 }

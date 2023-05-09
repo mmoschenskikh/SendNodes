@@ -7,8 +7,8 @@ services:
     networks:
       - blockchain
     environment:
-      NODE_ADDRESS: node1:1337
-      PEER_ADDRESSES: node2:1338,node3:1339
+      NODE_ADDRESS: node1:9999
+      PEER_ADDRESSES: node2,node3
     command: java -jar /app/send-nodes.jar
   second:
     image: maxultrasystem/send-nodes
@@ -17,8 +17,8 @@ services:
     networks:
       - blockchain
     environment:
-      NODE_ADDRESS: node2:1338
-      PEER_ADDRESSES: node1:1337,node3:1339
+      NODE_ADDRESS: node2
+      PEER_ADDRESSES: node1:9999,node3
     command: java -jar /app/send-nodes.jar
   third:
     image: maxultrasystem/send-nodes
@@ -27,8 +27,8 @@ services:
     networks:
       - blockchain
     environment:
-      NODE_ADDRESS: node3:1339
-      PEER_ADDRESSES: node1:1337,node2:1338
+      NODE_ADDRESS: node3
+      PEER_ADDRESSES: node1:9999,node2
     command: java -jar /app/send-nodes.jar
 
 networks:

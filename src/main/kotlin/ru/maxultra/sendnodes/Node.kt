@@ -20,7 +20,7 @@ class Node(
             try {
                 blockMiningJob?.join()
             } catch (e: CancellationException) {
-                println("${address.port} : `blockMiningJob?.join()` error")
+                println("$address : `blockMiningJob?.join()` error")
             }
             startBlockMining()
         }
@@ -46,7 +46,7 @@ class Node(
                         to = msg.from,
                     )
                 )
-                println("${address.port} : full chain requested from ${msg.from.port} because of wrong offer")
+                println("$address : full chain requested from ${msg.from} because of wrong offer")
             } else {
                 messenger.sendMessage(
                     Message.ChainResponse(
@@ -55,10 +55,10 @@ class Node(
                         to = msg.from,
                     )
                 )
-                println("${address.port} : full chain sent to ${msg.from.port} because of wrong offer")
+                println("$address : full chain sent to ${msg.from} because of wrong offer")
             }
         } else {
-            println("${address.port} : block #${msg.block.index} (${msg.block.hash.take(6)}) added from ${msg.from.port}")
+            println("$address : block #${msg.block.index} (${msg.block.hash.take(6)}) added from ${msg.from}")
         }
         startBlockMining()
     }
@@ -71,13 +71,13 @@ class Node(
                 to = msg.from,
             )
         )
-        println("${address.port} : full chain sent to ${msg.from.port} as a response")
+        println("$address : full chain sent to ${msg.from} as a response")
     }
 
     private fun onChainResponse(msg: Message.ChainResponse) {
         cancelBlockMining()
         blockChain.replace(msg.chain)
-        println("${address.port} : full chain received from ${msg.from.port}")
+        println("$address : full chain received from ${msg.from}")
         startBlockMining()
     }
 
@@ -95,7 +95,7 @@ class Node(
                     )
                 )
             }
-            println("${address.port} : block #${newBlock.index} (${newBlock.hash.take(6)}) mined")
+            println("$address : block #${newBlock.index} (${newBlock.hash.take(6)}) mined")
         } else {
             messenger.sendMessage(
                 Message.ChainRequest(

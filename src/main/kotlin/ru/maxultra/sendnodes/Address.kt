@@ -6,4 +6,9 @@ import kotlinx.serialization.Serializable
 data class Address(
     val hostName: String,
     val port: Int,
-)
+) {
+
+    override fun toString(): String {
+        return "$hostName:$port"
+    }
+}

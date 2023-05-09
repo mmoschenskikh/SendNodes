@@ -5,12 +5,11 @@ import ru.maxultra.sendnodes.Address
 import ru.maxultra.sendnodes.LocalBlockChain
 import ru.maxultra.sendnodes.Messenger
 import ru.maxultra.sendnodes.Node
+import ru.maxultra.sendnodes.getEnvOrThrow
 
-fun main(args: Array<String>) = runBlocking {
-    val address = args[0].split(":").run { Address(get(0), get(1).toInt()) }
-    val peers = args[1].split(",").map {
-        it.split(":").run { Address(get(0), get(1).toInt()) }
-    }
+fun main() = runBlocking {
+    val address = getNodeAddress()
+    val peers = getPeerAddresses()
     println("Address: $address, peers: $peers")
     val scope = CoroutineScope(SupervisorJob())
     val messenger = Messenger(
@@ -26,4 +25,10 @@ fun main(args: Array<String>) = runBlocking {
     )
     messenger.messageHandler = node
     node.run()
+}
+
+private fun getNodeAddress() = getEnvOrThrow("NODE_ADDRESS").split(":").run { Address(get(0), get(1).toInt()) }
+
+private fun getPeerAddresses() = getEnvOrThrow("PEER_ADDRESSES").split(",").map { address ->
+    address.split(":").run { Address(get(0), get(1).toInt()) }
 }

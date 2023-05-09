@@ -3,21 +3,33 @@ services:
   first:
     image: maxultrasystem/send-nodes
     container_name: first
-    network_mode: host
-    command: java -jar /app/send-nodes.jar 127.0.0.1:1337 127.0.0.1:1338,127.0.0.1:1339
-    ports:
-      - "1337:1337"
+    hostname: node1
+    networks:
+      - blockchain
+    environment:
+      NODE_ADDRESS: node1:1337
+      PEER_ADDRESSES: node2:1338,node3:1339
+    command: java -jar /app/send-nodes.jar
   second:
     image: maxultrasystem/send-nodes
     container_name: second
-    network_mode: host
-    command: java -jar /app/send-nodes.jar 127.0.0.1:1338 127.0.0.1:1339,127.0.0.1:1337
-    ports:
-      - "1338:1338"
+    hostname: node2
+    networks:
+      - blockchain
+    environment:
+      NODE_ADDRESS: node2:1338
+      PEER_ADDRESSES: node1:1337,node3:1339
+    command: java -jar /app/send-nodes.jar
   third:
     image: maxultrasystem/send-nodes
     container_name: third
-    network_mode: host
-    command: java -jar /app/send-nodes.jar 127.0.0.1:1339 127.0.0.1:1337,127.0.0.1:1338
-    ports:
-      - "1339:1339"
+    hostname: node3
+    networks:
+      - blockchain
+    environment:
+      NODE_ADDRESS: node3:1339
+      PEER_ADDRESSES: node1:1337,node2:1338
+    command: java -jar /app/send-nodes.jar
+
+networks:
+  blockchain:
